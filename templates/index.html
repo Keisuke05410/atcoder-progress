@@ -46,14 +46,10 @@
             </form>
           </td>
           <td>
-            <form method="post" action="/edit/{{progress.id}}">
-              <button type="submit">編集</button>
-            </form>
+            <input type="button" value="編集" class="btn_edit">
           </td>
           <td>
-            <form method="post" action="/try/{{progress.id}}">
-              <button type="submit">解きなおし</button>
-            </form>
+            <input type="button" value="解きなおし" class="btn_try">
           </td>
         </tr>
         {% endfor %}
