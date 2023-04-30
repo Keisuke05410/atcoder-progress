@@ -14,9 +14,6 @@ class Progress(db.Model):
     def __repr__(self):
         return f"Progress('{self.folder}', '{self.question_number}', '{self.correct}')"
 
-with app.app_context():
-    db.create_all()
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
