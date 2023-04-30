@@ -14,3 +14,11 @@ body {
 .navbar {
     background-color: var(--dark);
 }
+
+.show_progress{
+    width: 70%;
+}
+
+.edit_button{
+    vertical-align: middle;
+}
