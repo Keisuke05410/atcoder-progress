@@ -12,13 +12,25 @@ body {
 }
 
 .navbar {
-    background-color: var(--dark);
+	background-color: var(--dark);
 }
 
-.show_progress{
-    width: 70%;
+.show_progress {
+	width: 70%;
 }
 
-.edit_button{
-    vertical-align: middle;
+.edit_button {
+	vertical-align: middle;
+}
+
+.buttons {
+	margin-left: 100px;
+}
+
+.edit_number {
+	margin-left: 62px;
+}
+
+.edit_correct{
+	margin-left: 105px;
 }

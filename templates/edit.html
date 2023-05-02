@@ -73,8 +73,8 @@
 			</div>
 			{% else %}
 			<div class="row py-2 border-bottom">
-				<form method="post" action="/edit/{{progress.id}}">
-					<label for="folder">問題集:</label>
+				<form method="post" action="/edit/{{progress.id}}" class="d-flex">
+					<label for="folder" class="my-auto">問題集:</label>
 					<input
 						type="text"
 						id="folder"
@@ -83,7 +83,7 @@
 						value="{{progress.folder}}"
 						required
 					/>
-					<label class="ms-5" for="question_number">番号:</label>
+					<label class="my-auto edit_number" for="question_number">番号:</label>
 					<input
 						type="text"
 						size="10"
@@ -92,18 +92,20 @@
 						value="{{progress.question_number}}"
 						required
 					/>
-					<label class="ms-5 ps-5" for="correct">正解:</label>
+					<label class="my-auto edit_correct" for="correct">正解:</label>
 					<input class="me-5" type="checkbox" id="correct" name="correct" />
-					<button type="submit"  class="btn btn-outline-primary ms-5">
-						決定
-					</button>
-					<a
-						class="btn btn-primary mx-2"
-						href="/"
-						role="button"
-						aria-disabled="true"
-						>キャンセル</a
-					>
+					<div class="buttons">
+						<button type="submit" class="btn btn-outline-primary">
+							決定
+						</button>
+						<a
+							class="btn btn-primary"
+							href="/"
+							role="button"
+							aria-disabled="true"
+							>キャンセル</a
+						>
+					</div>
 				</form>
 			</div>
 			{% endif %} {% endfor %}
