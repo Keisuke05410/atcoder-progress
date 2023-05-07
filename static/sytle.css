@@ -15,6 +15,37 @@ body {
 	background-color: var(--dark);
 }
 
+.side_bar {
+	width: 18%;
+	height: 100vh;
+	float: left;
+	border-right: #888 1px solid;
+	text-align: center;
+}
+
+.main_body {
+	width: 82%;
+	height: 100%;
+	float: left;
+}
+
+.folder_list {
+	position: relative;
+}
+
+.folder_list a {
+	display: block;
+	border-top: #888 1px solid;
+	border-bottom: #888 1px solid;
+}
+
+.folder_list a:last-child {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(200%, -50%);
+}
+
 .show_progress {
 	width: 70%;
 }
@@ -31,6 +62,6 @@ body {
 	margin-left: 62px;
 }
 
-.edit_correct{
+.edit_correct {
 	margin-left: 105px;
 }

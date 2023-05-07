@@ -13,6 +13,10 @@ class Progress(db.Model):
     correct = db.Column(db.Boolean, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
 
+class Folder(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    folder = db.Column(db.String(100), nullable=False)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -26,7 +30,8 @@ def index():
         return redirect("/")
 
     progress_list = Progress.query.order_by(Progress.id).all()
-    return render_template('index.html', progress_list=progress_list)
+    folder_list = Folder.query.order_by(Folder.id).all()
+    return render_template('index.html', progress_list=progress_list, folder_list=folder_list)
 
 @app.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit(id):
@@ -49,6 +54,24 @@ def delete(id):
         db.session.delete(progress)
         db.session.commit()
         return redirect(url_for('index'))
+
+@app.route("/add_folder", methods=['GET', 'POST'])
+def add_folder():
+    if request.method=="POST":
+        folder = request.form['folder']
+        folder = Folder(folder=folder)
+        db.session.add(folder)
+        db.session.commit()
+        return redirect("/")
+
+@app.route("/delete_folder/<int:id>", methods=['GET', 'POST'])
+def delete_folder(id):
+    if request.method=="GET":
+        folder = Folder.query.get(id)
+        db.session.delete(folder)
+        db.session.commit()
+        return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
