@@ -48,6 +48,7 @@
 			</div>
 			{% endfor %}
 		</div>
+
 		<div class="main_body">
 			<div class="container">
 				<div class="row">
@@ -93,16 +94,16 @@
 					</div>
 					<div class="col-lg-3 edit_button">
 						<a
-							class="btn btn-primary"
+							class="btn btn-outline-primary"
 							href="/edit/{{progress.id}}"
 							role="button"
-							>編集</a
+							><i class="bi bi-pencil"></i></a
 						>
 						<a
-							class="btn btn-danger"
+							class="btn btn-outline-danger"
 							href="/delete/{{progress.id}}"
 							role="button"
-							>削除</a
+							><i class="bi bi-trash"></i></a
 						>
 					</div>
 				</div>
