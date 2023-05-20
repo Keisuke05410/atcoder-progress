@@ -42,7 +42,7 @@ def edit(id):
         progress.name = request.form['name']
         progress.number = int(request.form['number'])
         progress.alphabet = request.form['alphabet']
-        progress.correct = True if request.form['correct'] == 'correct' else False
+        progress.correct = request.form['correct_edit']
         progress.date = datetime.datetime.now()
         db.session.commit()
         return redirect("/")

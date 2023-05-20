@@ -120,7 +120,71 @@
               <div class="col-2">O/X</div>
               <div class="col-4">編集</div>
             </div>
-            {% for progress in progress_list%}
+            {% for progress in progress_list%} {% if progress.id == id %}
+            <form method="post" action="/edit/{{id}}">
+              <div class="row py-2 border-bottom">
+                <div class="col-2 d-flex align-items-center">
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{progress.name}}"
+                    name="name"
+                  />
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <input
+                    class="form-control"
+                    type="number"
+                    value="{{progress.number}}"
+                    name="number"
+                  />
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{progress.alphabet}}"
+                    name="alphabet"
+                  />
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                  <div
+                    class="btn-group mx-10"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                  >
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="correct_edit"
+                      id="correct_edit"
+                      value="correct"
+                      checked
+                    />
+                    <label class="btn btn-outline-primary" for="correct_edit"
+                      ><i class="bi bi-circle"></i
+                    ></label>
+
+                    <input
+                      type="radio"
+                      class="btn-check"
+                      name="correct_edit"
+                      id="wrong_edit"
+                      value="wrong"
+                    />
+                    <label class="btn btn-outline-primary" for="wrong_edit"
+                      ><i class="bi bi-check2"></i
+                    ></label>
+                  </div>
+                </div>
+								<div class="col-2">
+									<button type="submit" class="btn btn-outline-primary">
+										<i class="bi bi-plus-circle"></i>
+									</button>
+								</div>
+              </div>
+            </form>
+            {% else %}
             <div class="row py-2 border-bottom">
               <div class="col-2 d-flex align-items-center">
                 {{progress.name}}
@@ -132,7 +196,7 @@
                 {{progress.alphabet}}
               </div>
               <div class="col-2 d-flex align-items-center">
-                {% if progress.correct == "correct" %}
+                {% if progress.correct_edit == "correct" %}
                 <i class="bi bi-circle"></i>
                 {% elif progress.correct == "wrong before" %}
                 <i class="bi bi-check2-circle"></i>
@@ -153,17 +217,17 @@
                   role="button"
                   ><i class="bi bi-trash"></i
                 ></a>
-								{% if progress.correct == "wrong" %}
+                {% if progress.correct == "wrong" %}
                 <a
                   class="btn btn-outline-success"
                   href="/try/{{progress.id}}"
                   role="button"
                   ><i class="bi bi-arrow-counterclockwise"></i
                 ></a>
-								{% endif %}
+                {% endif %}
               </div>
             </div>
-            {% endfor %}
+            {% endif %} {% endfor %}
           </div>
         </div>
       </div>

@@ -131,10 +131,10 @@
               <div class="col-2 d-flex align-items-center">
                 {{progress.alphabet}}
               </div>
-              <div class="col-6 d-flex align-items-center">
+              <div class="col-6">
                 <form method="post" action="/try/{{id}}">
                   <div class="row">
-                    <div class="col text-center">
+                    <div class="col-4">
                       <div
                         class="btn-group mx-10"
                         role="group"
@@ -146,7 +146,6 @@
                           name="correct_try"
                           id="correct_try"
                           value="correct"
-                          checked
                         />
                         <label class="btn btn-outline-primary" for="correct_try"
                           ><i class="bi bi-circle"></i
@@ -158,13 +157,14 @@
                           name="correct_try"
                           id="wrong_try"
                           value="wrong"
+                          checked
                         />
                         <label class="btn btn-outline-primary" for="wrong_try"
                           ><i class="bi bi-check2"></i
                         ></label>
                       </div>
                     </div>
-                    <div class="col">
+                    <div class="col-8">
                       <button type="submit" class="btn btn-outline-primary">
                         <i class="bi bi-plus-circle"></i>
                       </button>
