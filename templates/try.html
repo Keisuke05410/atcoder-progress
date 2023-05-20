@@ -120,7 +120,60 @@
               <div class="col-2">O/X</div>
               <div class="col-4">編集</div>
             </div>
-            {% for progress in progress_list%}
+            {% for progress in progress_list %} {% if progress.id == id %}
+            <div class="row py-2 border-bottom">
+              <div class="col-2 d-flex align-items-center">
+                {{progress.name}}
+              </div>
+              <div class="col-2 d-flex align-items-center">
+                {{progress.number}}
+              </div>
+              <div class="col-2 d-flex align-items-center">
+                {{progress.alphabet}}
+              </div>
+              <div class="col-6 d-flex align-items-center">
+                <form method="post" action="/try/{{id}}">
+                  <div class="row">
+                    <div class="col text-center">
+                      <div
+                        class="btn-group mx-10"
+                        role="group"
+                        aria-label="Basic radio toggle button group"
+                      >
+                        <input
+                          type="radio"
+                          class="btn-check"
+                          name="correct_try"
+                          id="correct_try"
+                          value="correct"
+                          checked
+                        />
+                        <label class="btn btn-outline-primary" for="correct_try"
+                          ><i class="bi bi-circle"></i
+                        ></label>
+
+                        <input
+                          type="radio"
+                          class="btn-check"
+                          name="correct_try"
+                          id="wrong_try"
+                          value="wrong"
+                        />
+                        <label class="btn btn-outline-primary" for="wrong_try"
+                          ><i class="bi bi-check2"></i
+                        ></label>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-plus-circle"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {% else %}
             <div class="row py-2 border-bottom">
               <div class="col-2 d-flex align-items-center">
                 {{progress.name}}
@@ -134,36 +187,37 @@
               <div class="col-2 d-flex align-items-center">
                 {% if progress.correct == "correct" %}
                 <i class="bi bi-circle"></i>
-                {% elif progress.correct == "wrong before" %}
-                <i class="bi bi-check2-circle"></i>
                 {% else %}
                 <i class="bi bi-check2"></i>
                 {% endif %}
               </div>
               <div class="col-4 edit_button">
                 <a
-                  class="btn btn-outline-primary"
+                  class="btn btn-outline-primary disabled"
                   href="/edit/{{progress.id}}"
                   role="button"
+                  aria-disabled="true"
                   ><i class="bi bi-pencil"></i
                 ></a>
                 <a
-                  class="btn btn-outline-danger"
+                  class="btn btn-outline-danger disabled"
                   href="/delete/{{progress.id}}"
                   role="button"
+                  aria-disabled="true"
                   ><i class="bi bi-trash"></i
                 ></a>
-								{% if progress.correct == "wrong" %}
+                {% if progress.correct == "wrong" %}
                 <a
-                  class="btn btn-outline-success"
+                  class="btn btn-outline-success disabled"
                   href="/try/{{progress.id}}"
                   role="button"
+                  aria-disabled="true"
                   ><i class="bi bi-arrow-counterclockwise"></i
                 ></a>
-								{% endif %}
+                {% endif %}
               </div>
             </div>
-            {% endfor %}
+            {% endif %} {% endfor %}
           </div>
         </div>
       </div>

@@ -8,30 +8,29 @@ db = SQLAlchemy(app)
 
 class Progress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    folder = db.Column(db.String(100), nullable=False)
-    question_number = db.Column(db.Integer, nullable=False)
-    correct = db.Column(db.Boolean, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    number = db.Column(db.Integer, nullable=False)
+    alphabet = db.Column(db.String(100), nullable=False)
+    correct = db.Column(db.String(100), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-
-class Folder(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    folder = db.Column(db.String(100), nullable=False)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        folder = request.form['folder']
-        question_number = int(request.form['question_number'])
-        correct = request.form.get('correct') == 'on'
+        url = request.form['URL']
+        url = url.split('/')[-1]
+        name = url[:3]
+        number = int(url[3:6])
+        alphabet = url[-1]
+        correct = request.form['correct']
         date = datetime.datetime.now()
-        progress = Progress(folder=folder, question_number=question_number, correct=correct, date=date)
+        progress = Progress(name=name, number=number, alphabet=alphabet, correct=correct, date=date)
         db.session.add(progress)
         db.session.commit()
         return redirect("/")
 
     progress_list = Progress.query.order_by(Progress.id).all()
-    folder_list = Folder.query.order_by(Folder.id).all()
-    return render_template('index.html', progress_list=progress_list, folder_list=folder_list)
+    return render_template('index.html', progress_list=progress_list)
 
 @app.route("/edit/<int:id>", methods=['GET', 'POST'])
 def edit(id):
@@ -40,9 +39,23 @@ def edit(id):
         return render_template("edit.html", progress_list=progress_list, id=id)
     else:
         progress = Progress.query.get(id)
-        progress.folder = request.form['folder']
-        progress.question_number = int(request.form['question_number'])
-        progress.correct = request.form.get('correct') == 'on'
+        progress.name = request.form['name']
+        progress.number = int(request.form['number'])
+        progress.alphabet = request.form['alphabet']
+        progress.correct = True if request.form['correct'] == 'correct' else False
+        progress.date = datetime.datetime.now()
+        db.session.commit()
+        return redirect("/")
+
+@app.route("/try/<int:id>", methods=['GET', 'POST'])
+def try_edit(id):
+    if request.method == "GET":
+        progress_list = Progress.query.order_by(Progress.id).all()
+        return render_template("try.html", progress_list=progress_list, id=id)
+    else:
+        progress = Progress.query.get(id)
+        if request.form['correct_try'] == 'correct':
+            progress.correct = "wrong before"
         progress.date = datetime.datetime.now()
         db.session.commit()
         return redirect("/")
@@ -54,24 +67,6 @@ def delete(id):
         db.session.delete(progress)
         db.session.commit()
         return redirect(url_for('index'))
-
-@app.route("/add_folder", methods=['GET', 'POST'])
-def add_folder():
-    if request.method=="POST":
-        folder = request.form['folder']
-        folder = Folder(folder=folder)
-        db.session.add(folder)
-        db.session.commit()
-        return redirect("/")
-
-@app.route("/delete_folder/<int:id>", methods=['GET', 'POST'])
-def delete_folder(id):
-    if request.method=="GET":
-        folder = Folder.query.get(id)
-        db.session.delete(folder)
-        db.session.commit()
-        return redirect("/")
-
 
 if __name__ == '__main__':
     app.run(debug=True)
